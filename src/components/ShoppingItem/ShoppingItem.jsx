@@ -8,12 +8,16 @@ const ShoppingItem = ({
   purchased,
   getShoppingList,
 }) => {
+  //Will this need to become a PUT request?
   const buyItem = () => {};
+
+  //DELETE request using query id
   const removeItem = (id) => {
     fetch(`/shoppinglist/?id=${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
+    //Using GET request passed in from props
       .then(() => {
         getShoppingList();
       })
