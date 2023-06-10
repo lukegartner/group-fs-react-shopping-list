@@ -1,4 +1,6 @@
 import ShoppingItem from "../ShoppingItem/ShoppingItem";
+import "./ShoppingList.css";
+import Swal from "sweetalert2";
 
 //shoppingList (list of items from database) and getShoppingList (GET request) were passed to this component from App.jsx
 
@@ -34,8 +36,50 @@ const ShoppingList = ({ shoppingList, getShoppingList }) => {
   return (
     <div>
       <h2>Shopping List</h2>
-      <button onClick={resetList}>Reset</button>
-      <button onClick={clearList}>Clear</button>
+      <button
+        onClick={() => {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to reverse this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#9ACD32",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Reset List",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              resetList();
+              Swal.fire("List reset!", "Your list has been reset.", "Success");
+            }
+          });
+        }}
+      >
+        Reset
+      </button>
+      <button
+        onClick={() => {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#9ACD32",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Clear List",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              clearList();
+              Swal.fire(
+                "List cleared!",
+                "Your list has been cleared.",
+                "success"
+              );
+            }
+          });
+        }}
+      >
+        Clear
+      </button>
       <div className="shopping-items">
         {/* Looping through each item in shoppingList and displaying it using ShoppingItem component. Also passing multiple props along to ShoppingItem component. */}
         {shoppingList.map(({ id, name, quantity, unit, purchased }) => (
