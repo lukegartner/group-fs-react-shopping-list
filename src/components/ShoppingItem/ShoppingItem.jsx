@@ -8,8 +8,26 @@ const ShoppingItem = ({
   purchased,
   getShoppingList,
 }) => {
-  //Will this need to become a PUT request?
-  const buyItem = () => {};
+  //PUT request to update purchased status
+  const buyItem = (id, toggledPurchased) => {
+    fetch(`/shoppinglist/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id,
+        name,
+        quantity,
+        unit,
+        purchased: toggledPurchased,
+      }),
+    })
+      .then(() => {
+        getShoppingList();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   //DELETE request using query id
   const removeItem = (id) => {
@@ -17,7 +35,7 @@ const ShoppingItem = ({
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
-    //Using GET request passed in from props
+      //Using GET request passed in from props
       .then(() => {
         getShoppingList();
       })
@@ -34,7 +52,7 @@ const ShoppingItem = ({
       </p>
       <button
         onClick={() => {
-          buyItem(id);
+          buyItem(id, !purchased);
         }}
       >
         Buy

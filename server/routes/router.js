@@ -47,7 +47,10 @@ router.post("/", (req, res) => {
 
 router.delete("/", (req, res) => {
   const id = req.query.id;
-
+  // if id include ID in query, else delete *?
+  // if (id) {
+  //let queryTe
+  // }
   let queryText = `DELETE FROM shoppinglist WHERE id=$1;`;
   pool
     .query(queryText, [id])
@@ -61,6 +64,39 @@ router.delete("/", (req, res) => {
     });
 });
 
+// DELETE all
+// router.delete("/", (req, res) => {
+//   let queryText = `SELECT * FROM shoppinglist;`; // SELECT for testing
+//   pool
+//     .query(queryText)
+//     .then((result) => {
+//       console.log("Grocery list cleared: ", result);
+//       res.sendStatus(200);
+//     })
+//     .catch((error) => {
+//       console.log(`Error making database query ${queryText}`, error);
+//       res.sendStatus(500);
+//     });
+// });
+
 // PUT
+
+router.put("/:id", (req, res) => {
+  const id = req.params.id;
+  const { name, quantity, unit, purchased } = req.body;
+  const queryText = `
+    UPDATE shoppinglist SET name=$1, quantity=$2, unit=$3, purchased=$4
+    WHERE id = $5;    
+  `;
+  const queryArgs = [name, quantity, unit, purchased, id];
+
+  pool
+    .query(queryText, queryArgs)
+    .then((result) => res.sendStatus(201))
+    .catch((error) => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;
