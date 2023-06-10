@@ -10,7 +10,7 @@ const ShoppingItem = ({
 }) => {
   //PUT request to update purchased status
   const buyItem = (id, toggledPurchased) => {
-    fetch(`/shoppinglist/${id}`, {
+    fetch(`/shoppinglist/?id=${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -50,20 +50,24 @@ const ShoppingItem = ({
       <p>
         {quantity} {unit}
       </p>
-      <button
-        onClick={() => {
-          buyItem(id, !purchased);
-        }}
-      >
-        Buy
-      </button>
-      <button
-        onClick={() => {
-          removeItem(id);
-        }}
-      >
-        Remove
-      </button>
+      {!purchased ? (
+        <button
+          onClick={() => {
+            buyItem(id, !purchased);
+          }}
+        >
+          Buy
+        </button>
+      ) : null}
+      {!purchased ? (
+        <button
+          onClick={() => {
+            removeItem(id);
+          }}
+        >
+          Remove
+        </button>
+      ) : null}
     </div>
   );
 };

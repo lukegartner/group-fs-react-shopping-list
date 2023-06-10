@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
   queryText = `
     SELECT * FROM shoppinglist
-    ORDER BY name;`;
+    ORDER BY purchased, name;`;
 
   pool
     .query(queryText)
@@ -47,13 +47,18 @@ router.post("/", (req, res) => {
 
 router.delete("/", (req, res) => {
   const id = req.query.id;
-  // if id include ID in query, else delete *?
-  // if (id) {
-  //let queryTe
-  // }
-  let queryText = `DELETE FROM shoppinglist WHERE id=$1;`;
+  // if id include ID in query, else delete *
+  let queryText;
+  let queryArgs = [];
+  if (id) {
+    queryText = `DELETE FROM shoppinglist WHERE id=$1;`;
+    queryArgs = [id];
+  } else {
+    queryText = "DELETE FROM shoppinglist;";
+  }
+
   pool
-    .query(queryText, [id])
+    .query(queryText, queryArgs)
     .then((result) => {
       console.log("Grocery item deleted");
       res.sendStatus(200);
@@ -64,31 +69,25 @@ router.delete("/", (req, res) => {
     });
 });
 
-// DELETE all
-// router.delete("/", (req, res) => {
-//   let queryText = `SELECT * FROM shoppinglist;`; // SELECT for testing
-//   pool
-//     .query(queryText)
-//     .then((result) => {
-//       console.log("Grocery list cleared: ", result);
-//       res.sendStatus(200);
-//     })
-//     .catch((error) => {
-//       console.log(`Error making database query ${queryText}`, error);
-//       res.sendStatus(500);
-//     });
-// });
-
 // PUT
 
-router.put("/:id", (req, res) => {
-  const id = req.params.id;
+router.put("/", (req, res) => {
+  const id = req.query.id;
+  const resetPurchased = req.query.purchased;
+
+  let queryText;
+  let queryArgs = [];
   const { name, quantity, unit, purchased } = req.body;
-  const queryText = `
+  if (resetPurchased) {
+    queryText = `UPDATE shoppinglist SET purchased = false;`;
+  }
+  if (!resetPurchased) {
+    queryText = `
     UPDATE shoppinglist SET name=$1, quantity=$2, unit=$3, purchased=$4
     WHERE id = $5;    
   `;
-  const queryArgs = [name, quantity, unit, purchased, id];
+    queryArgs = [name, quantity, unit, purchased, id];
+  }
 
   pool
     .query(queryText, queryArgs)
