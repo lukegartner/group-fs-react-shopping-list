@@ -1,6 +1,7 @@
 import ShoppingItem from "../ShoppingItem/ShoppingItem";
 import "./ShoppingList.css";
 import Swal from "sweetalert2";
+import { Button } from "@mui/material";
 
 //shoppingList (list of items from database) and getShoppingList (GET request) were passed to this component from App.jsx
 
@@ -36,7 +37,10 @@ const ShoppingList = ({ shoppingList, getShoppingList }) => {
   return (
     <div>
       <h2>Shopping List</h2>
-      <button
+      <Button
+        variant="contained"
+        color="warning"
+        sx={{ mx: 1 }}
         onClick={() => {
           Swal.fire({
             title: "Are you sure?",
@@ -55,8 +59,10 @@ const ShoppingList = ({ shoppingList, getShoppingList }) => {
         }}
       >
         Reset
-      </button>
-      <button
+      </Button>
+      <Button
+        variant="contained"
+        color="error"
         onClick={() => {
           Swal.fire({
             title: "Are you sure?",
@@ -79,7 +85,7 @@ const ShoppingList = ({ shoppingList, getShoppingList }) => {
         }}
       >
         Clear
-      </button>
+      </Button>
       <div className="shopping-items">
         {/* Looping through each item in shoppingList and displaying it using ShoppingItem component. Also passing multiple props along to ShoppingItem component. */}
         {shoppingList.map(({ id, name, quantity, unit, purchased }) => (
