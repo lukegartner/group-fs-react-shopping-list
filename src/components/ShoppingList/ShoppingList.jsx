@@ -39,7 +39,7 @@ const ShoppingList = ({ shoppingList, getShoppingList }) => {
       <h2>Shopping List</h2>
       <Button
         variant="contained"
-        color="warning"
+        color="secondary"
         sx={{ mx: 1 }}
         onClick={() => {
           Swal.fire({
@@ -62,7 +62,7 @@ const ShoppingList = ({ shoppingList, getShoppingList }) => {
       </Button>
       <Button
         variant="contained"
-        color="error"
+        color="primary"
         onClick={() => {
           Swal.fire({
             title: "Are you sure?",
