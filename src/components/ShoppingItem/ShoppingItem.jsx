@@ -118,6 +118,7 @@ const ShoppingItem = ({
         ) : null}
         {!purchased ? (
           <CheckBoxIcon
+            className="icons"
             color='success'
             onClick={() => {
               buyItem(id, !purchased);
@@ -126,6 +127,7 @@ const ShoppingItem = ({
         ) : null}
         {!purchased ? (
           <DeleteIcon
+            className="icons"
             color='error'
             onClick={() => {
               removeItem(id);
@@ -133,6 +135,7 @@ const ShoppingItem = ({
           />
         ) : null}
         <BorderColorIcon
+          className="icons"
           onClick={() => {
             setIsEditing(!isEditing);
           }}
