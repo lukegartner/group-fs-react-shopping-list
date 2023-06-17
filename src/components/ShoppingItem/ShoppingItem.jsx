@@ -83,7 +83,7 @@ const ShoppingItem = ({
       align="center"
       sx={{
         position: "relative",
-        backgroundColor: "secondary.light",
+        backgroundColor: purchased ? "grey" : "secondary.light",
         color: "primary.dark",
         alignitems: "center",
         height: 200,
