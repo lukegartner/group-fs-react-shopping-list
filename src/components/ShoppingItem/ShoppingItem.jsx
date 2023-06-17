@@ -1,7 +1,8 @@
-import React from 'react';
 import { useState } from "react";
 import "./ShoppingItem.css";
 
+import * as React from 'react';
+import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
@@ -77,65 +78,66 @@ const ShoppingItem = ({
   };
 
   return (
-    <div className={purchased ? "shopping-item purchased" : "shopping-item"}>
-      {isEditing ? (
-        <input
-          type="text"
-          value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
-        />
-      ) : (
-        <h3>{name}</h3>
-      )}
-      {isEditing ? (
-        <>
-          <input
-            type="number"
-            value={itemQuantity}
-            onChange={(e) => setItemQuantity(e.target.value)}
-          />
+    <Box
+      className={purchased ? "shopping-item purchased" : "shopping-item"}>
+        {isEditing ? (
           <input
             type="text"
-            value={itemUnit}
-            onChange={(e) => setItemUnit(e.target.value)}
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
           />
-        </>
-      ) : (
-        <p>
-          {quantity} {unit}
-        </p>
-      )}
-      {isEditing ? (
-        <button
+        ) : (
+          <h3>{name}</h3>
+        )}
+        {isEditing ? (
+          <>
+            <input
+              type="number"
+              value={itemQuantity}
+              onChange={(e) => setItemQuantity(e.target.value)}
+            />
+            <input
+              type="text"
+              value={itemUnit}
+              onChange={(e) => setItemUnit(e.target.value)}
+            />
+          </>
+        ) : (
+          <p>
+            {quantity} {unit}
+          </p>
+        )}
+        {isEditing ? (
+          <button
+            onClick={() => {
+              editItem(id);
+            }}
+          >
+            Update
+          </button>
+        ) : null}
+        {!purchased ? (
+          <CheckBoxIcon
+            color='success'
+            onClick={() => {
+              buyItem(id, !purchased);
+            }}
+          />
+        ) : null}
+        {!purchased ? (
+          <DeleteIcon
+            color='error'
+            onClick={() => {
+              removeItem(id);
+            }}
+          />
+        ) : null}
+        <BorderColorIcon
           onClick={() => {
-            editItem(id);
-          }}
-        >
-          Update
-        </button>
-      ) : null}
-      {!purchased ? (
-        <CheckBoxIcon
-          color='success'
-          onClick={() => {
-            buyItem(id, !purchased);
+            setIsEditing(!isEditing);
           }}
         />
-      ) : null}
-      {!purchased ? (
-        <DeleteIcon
-          color='error'
-          onClick={() => {
-            removeItem(id);
-          }}
-        />
-      ) : null}
-      <BorderColorIcon
-        onClick={() => {
-          setIsEditing(!isEditing);
-        }}
-      />
-    </div>
+    </Box>
   );
 };
 
