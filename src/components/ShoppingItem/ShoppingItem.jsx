@@ -1,8 +1,10 @@
+import React from 'react';
 import { useState } from "react";
 import "./ShoppingItem.css";
-import { AiFillDelete } from "react-icons/ai";
-import { AiFillEdit } from "react-icons/ai";
-import { BsFillCartCheckFill, BsMenuButton } from "react-icons/bs";
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 const ShoppingItem = ({
   id,
@@ -113,22 +115,22 @@ const ShoppingItem = ({
         </button>
       ) : null}
       {!purchased ? (
-        <BsFillCartCheckFill
-          className="buy-button"
+        <CheckBoxIcon
+          color='success'
           onClick={() => {
             buyItem(id, !purchased);
           }}
         />
       ) : null}
       {!purchased ? (
-        <AiFillDelete
-          className="remove-button"
+        <DeleteIcon
+          color='error'
           onClick={() => {
             removeItem(id);
           }}
         />
       ) : null}
-      <AiFillEdit
+      <BorderColorIcon
         onClick={() => {
           setIsEditing(!isEditing);
         }}
