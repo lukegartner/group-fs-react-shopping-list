@@ -60,6 +60,7 @@ function App() {
           <ShoppingList
             shoppingList={shoppingList}
             getShoppingList={getShoppingList}
+            theme={theme}
           />
         </Box>
       </ThemeProvider>
