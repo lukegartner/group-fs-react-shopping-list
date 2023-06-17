@@ -50,7 +50,7 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Header />
+        <Header setShoppingList={setShoppingList} />
         <Box
           sx={{
             mx: 1.5,
