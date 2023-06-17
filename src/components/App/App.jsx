@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import '@fontsource/roboto';
-import Box from '@mui/material/Box';
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import {indigo, orange, red } from "@mui/material/colors";
 
+import "@fontsource/roboto";
+import Box from "@mui/material/Box";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { indigo, orange, red } from "@mui/material/colors";
 
 //Importing components
 
@@ -50,10 +50,10 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Header />
+        <Header setShoppingList={setShoppingList} />
         <Box
           sx={{
-            mx: 1.5
+            mx: 1.5,
           }}
         >
           <Inputs getShoppingList={getShoppingList} />

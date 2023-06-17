@@ -5,12 +5,21 @@ const router = express.Router();
 
 //GET
 router.get("/", (req, res) => {
-  queryText = `
+  let queryText = `
     SELECT * FROM shoppinglist
     ORDER BY purchased, name;`;
+  let queryArgs = [];
+
+  if (req.query.search) {
+    queryText = `
+    SELECT * FROM shoppinglist
+    WHERE name ILIKE $1
+    ORDER BY purchased, name;`;
+    queryArgs = [`%${req.query.search}%`];
+  }
 
   pool
-    .query(queryText)
+    .query(queryText, queryArgs)
     .then((result) => {
       res.status(200).send(result.rows);
     })

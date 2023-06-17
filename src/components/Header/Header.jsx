@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import "./Header.css";
 import Toolbar from "@mui/material/Toolbar";
 import { styled, alpha } from "@mui/material/styles";
@@ -50,7 +51,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function Header() {
+function Header({ setShoppingList }) {
+  const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    fetch(`/shoppinglist/?search=${searchText}`)
+      .then((response) => response.json())
+      .then((item) => setShoppingList(item))
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [searchText]);
+
   return (
     <AppBar position="static" className="banner-header">
       <Toolbar>
@@ -63,7 +75,10 @@ function Header() {
         >
           My Shopping List
         </Typography>
-        <Search>
+        <Search
+          onChange={(e) => setSearchText(e.target.value)}
+          value={searchText}
+        >
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
