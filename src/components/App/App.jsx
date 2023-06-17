@@ -2,6 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import '@fontsource/roboto';
 import Box from '@mui/material/Box';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {indigo, orange, red } from "@mui/material/colors";
+
 
 //Importing components
 
@@ -9,6 +12,18 @@ import Header from "../Header/Header.jsx";
 import Inputs from "../Inputs/Inputs.jsx";
 import ShoppingList from "../ShoppingList/ShoppingList.jsx";
 import "./App.css";
+
+//Creating Theme
+
+const theme = createTheme({
+  status: {
+    error: indigo,
+  },
+  palette: {
+    primary: indigo,
+    secondary: orange,
+  },
+});
 
 //GET request for items in shopping list database, setting shoppingList to an array of items in database
 
@@ -34,18 +49,20 @@ function App() {
   //Passing array of shopping list items (shoppingList) to ShoppingList component
   return (
     <div className="App">
-      <Header />
-      <Box
-        sx={{
-          mx: 1.5
-        }}
-      >
-        <Inputs getShoppingList={getShoppingList} />
-        <ShoppingList
-          shoppingList={shoppingList}
-          getShoppingList={getShoppingList}
-        />
-      </Box>
+      <ThemeProvider theme={theme}>
+        <Header />
+        <Box
+          sx={{
+            mx: 1.5
+          }}
+        >
+          <Inputs getShoppingList={getShoppingList} />
+          <ShoppingList
+            shoppingList={shoppingList}
+            getShoppingList={getShoppingList}
+          />
+        </Box>
+      </ThemeProvider>
     </div>
   );
 }
