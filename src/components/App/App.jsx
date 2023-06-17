@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import '@fontsource/roboto';
+import Box from '@mui/material/Box';
 
 //Importing components
 
@@ -34,11 +35,17 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Inputs getShoppingList={getShoppingList} />
-      <ShoppingList
-        shoppingList={shoppingList}
-        getShoppingList={getShoppingList}
-      />
+      <Box
+        sx={{
+          mx: 1.5
+        }}
+      >
+        <Inputs getShoppingList={getShoppingList} />
+        <ShoppingList
+          shoppingList={shoppingList}
+          getShoppingList={getShoppingList}
+        />
+      </Box>
     </div>
   );
 }
