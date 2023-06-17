@@ -5,3 +5,16 @@
 .icons {
   cursor: pointer;
 }
+.icon-container {
+  position: absolute;
+  bottom: 0.25rem;
+  right: 0.25rem;
+}
+.checkbox {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+}
+.info-container {
+  margin-top: 3.5rem;
+}

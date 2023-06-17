@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./ShoppingItem.css";
 
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import * as React from "react";
+import Paper from "@mui/material/Paper";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 
 const ShoppingItem = ({
   id,
@@ -78,8 +78,20 @@ const ShoppingItem = ({
   };
 
   return (
-    <Box
-      className={purchased ? "shopping-item purchased" : "shopping-item"}>
+    <Paper
+      elevation={3}
+      align="center"
+      sx={{
+        position: "relative",
+        backgroundColor: "secondary.light",
+        color: "primary.dark",
+        alignitems: "center",
+        height: 200,
+        width: 200,
+      }}
+      className={purchased ? "shopping-item purchased" : "shopping-item"}
+    >
+      <div className="info-container">
         {isEditing ? (
           <input
             type="text"
@@ -107,6 +119,17 @@ const ShoppingItem = ({
             {quantity} {unit}
           </p>
         )}
+      </div>
+      {!purchased ? (
+        <CheckBoxIcon
+          className="icons checkbox"
+          color="success"
+          onClick={() => {
+            buyItem(id, !purchased);
+          }}
+        />
+      ) : null}
+      <div className="icon-container">
         {isEditing ? (
           <button
             onClick={() => {
@@ -116,19 +139,11 @@ const ShoppingItem = ({
             Update
           </button>
         ) : null}
-        {!purchased ? (
-          <CheckBoxIcon
-            className="icons"
-            color='success'
-            onClick={() => {
-              buyItem(id, !purchased);
-            }}
-          />
-        ) : null}
+
         {!purchased ? (
           <DeleteIcon
             className="icons"
-            color='error'
+            color="error"
             onClick={() => {
               removeItem(id);
             }}
@@ -140,7 +155,8 @@ const ShoppingItem = ({
             setIsEditing(!isEditing);
           }}
         />
-    </Box>
+      </div>
+    </Paper>
   );
 };
 

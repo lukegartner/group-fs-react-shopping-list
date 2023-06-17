@@ -1,1 +1,28 @@
+.shopping-items {
+  display: grid;
+  row-gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin-top: 1rem;
+  justify-items: center;
+}
 
+@media screen and (max-width: 1080px) {
+  .shopping-items {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+@media screen and (max-width: 860px) {
+  .shopping-items {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media screen and (max-width: 640px) {
+  .shopping-items {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 450px) {
+  .shopping-items {
+    grid-template-columns: 1fr;
+  }
+}
